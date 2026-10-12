@@ -1,0 +1,39 @@
+body, html {
+  margin: 0;
+  font-family: "Special Elite", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1, h3, p {
+  margin: 0;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(335deg, rgba(20, 6, 3, .35), transparent 50%),
+    linear-gradient(rgba(20, 7, 4, .15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 7, 4, .12) 1px, transparent 1px),
+    #6b3228;
+  background-size: auto, 100% 62px, 108px 100%, auto;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: .5;
+  background:
+    linear-gradient(90deg, transparent 51px, #351611 52px, transparent 55px) 0 0 / 108px 62px,
+    linear-gradient(90deg, #351611 2px, transparent 3px) 54px 31px / 108px 62px,
+    linear-gradient(#8d493b 1px, transparent 3px) 0 0 / 100% 62px;
+  box-shadow: inset 0 0 180px #170706;
+}
