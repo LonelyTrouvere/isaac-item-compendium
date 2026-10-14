@@ -1,7 +1,7 @@
 import type { Item as ItemType } from "../../types/item";
 import TagManager from "../TagManager/TagManager";
 
-export default function Item({
+export function Item({
   item,
   openedItem,
   setOpenItem,
