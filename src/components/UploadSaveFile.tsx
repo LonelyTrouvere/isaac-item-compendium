@@ -1,8 +1,29 @@
 import { useRef, useState } from "react";
+import { Buffer } from "buffer";
+import type { ParsedData } from "../types/parsed-data";
+import { parseIsaacSaveFile } from "../lib/isaac-save-parser";
 
-export default function UploadSaveFile() {
-    const [isDragging, setIsDragging] = useState(false);
+export default function UploadSaveFile({
+  setParsedData,
+}: {
+  setParsedData: React.Dispatch<React.SetStateAction<ParsedData | null>>;
+}) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const selectFile = async (incoming?: File) => {
+    if (!incoming) return;
+
+    if (!incoming.name.toLowerCase().endsWith(".dat")) {
+      setError("Only .dat files can be analyzed.");
+      return;
+    }
+
+    const fileBuffer = await incoming.arrayBuffer();
+    const parsedData = parseIsaacSaveFile(Buffer.from(fileBuffer));
+    setParsedData(parsedData);
+  };
 
   return (
     <main className="main upload-main">
@@ -42,6 +63,10 @@ export default function UploadSaveFile() {
           ref={inputRef}
           type="file"
           accept=".dat,application/octet-stream"
+          onChange={(event) => {
+            selectFile(event.target.files?.[0]);
+            event.target.value = "";
+          }}
         />
       </div>
     </main>

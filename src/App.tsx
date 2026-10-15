@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import FastScroll from "./components/FastScroll";
 import UploadSaveFile from "./components/UploadSaveFile";
+import MainApp from "./components/MainApp";
+import type { ParsedData } from "./types/parsed-data";
 
 function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [parsedData, setParsedData] = useState<ParsedData | null>(null);
 
   useEffect(() => {
     const updateScrollTop = () => setShowScrollTop(window.scrollY > 480);
@@ -19,7 +22,11 @@ function App() {
         <h1 className="app__header__main">THE BINDING OF ISAAC</h1>
         <h3 className="app__header__sub">Item Compendium</h3>
       </header>
-      <UploadSaveFile />
+      {parsedData !== null ? (
+        <MainApp parsedData={parsedData} />
+      ) : (
+        <UploadSaveFile setParsedData={setParsedData} />
+      )}
       <footer className="app__footer"></footer>
       <FastScroll showScrollTop={showScrollTop} />
     </div>

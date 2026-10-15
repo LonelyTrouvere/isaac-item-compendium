@@ -3,6 +3,7 @@ import type { Item } from "../types/item";
 import FiltersTab from "./FiltersTab";
 import itemsJson from "../items.json";
 import { Item as ItemComponent } from "./Item/Item";
+import type { ParsedData } from "../types/parsed-data";
 
 const items = [
   ...itemsJson.items.active,
@@ -11,8 +12,9 @@ const items = [
   ...itemsJson.items.passive,
 ].sort(() => 0.5 - Math.random()) as Item[];
 
-export default function MainApp() {
+export default function MainApp({ parsedData }: { parsedData: ParsedData }) {
   const [openItemId, setOpenItemId] = useState<string>("");
+  console.log(parsedData)
 
   return (
     <main className="main">
