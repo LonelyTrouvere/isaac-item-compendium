@@ -1,20 +1,27 @@
-import { useState } from "react";
-import type { Item } from "../types/item";
+import { useEffect, useState } from "react";
 import FiltersTab from "./FiltersTab";
-import itemsJson from "../items.json";
 import { Item as ItemComponent } from "./Item/Item";
 import type { ParsedData } from "../types/parsed-data";
-
-const items = [
-  ...itemsJson.items.active,
-  ...itemsJson.items.familiar,
-  ...itemsJson.items.trinket,
-  ...itemsJson.items.passive,
-].sort(() => 0.5 - Math.random()) as Item[];
+import type { CollectiblesChunkType } from "../lib/collectibles-chunk-type";
+import { db } from "../lib/db";
+import type { Item } from "../types/item";
 
 export default function MainApp({ parsedData }: { parsedData: ParsedData }) {
   const [openItemId, setOpenItemId] = useState<string>("");
-  console.log(parsedData)
+  const collected = (
+    parsedData.chunks[3].body as unknown as CollectiblesChunkType
+  ).seen_by_id;
+
+  const [items, setItems] = useState<Item[]>([]);
+
+  useEffect(() => {
+    async function initItems() {
+      const results = await db.items.limit(50).toArray();
+      setItems(results);
+    }
+
+    initItems();
+  }, []);
 
   return (
     <main className="main">
@@ -22,7 +29,7 @@ export default function MainApp({ parsedData }: { parsedData: ParsedData }) {
         <div>
           <p className="main__header__main">Collectibles</p>
           <p className="main__header__sub">
-            0 out of {items.length} discovered
+            {collected.reduce((col, prev) => col+prev, 0)} out of {items.length} discovered
           </p>
         </div>
         <label className="main__search">
@@ -38,14 +45,16 @@ export default function MainApp({ parsedData }: { parsedData: ParsedData }) {
       <div className="main__content-wrapper">
         <FiltersTab />
         <section className="main__items">
-          {items.map((it) => (
-            <ItemComponent
-              item={it}
-              key={`${it.type}_${it.id}`}
-              openedItem={openItemId}
-              setOpenItem={setOpenItemId}
-            />
-          ))}
+          {items
+            .filter((it) => collected[it.id])
+            .map((it) => (
+              <ItemComponent
+                item={it}
+                key={`${it.type}_${it.id}`}
+                openedItem={openItemId}
+                setOpenItem={setOpenItemId}
+              />
+            ))}
         </section>
       </div>
     </main>
