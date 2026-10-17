@@ -1,17 +1,25 @@
 import Dexie, { type Table } from "dexie";
 import type { Item } from "../types/item";
+import type { GetItems } from "../types/get-items";
 
-// 2. Extend the Dexie class and declare your tables
 export class IsaacDatabase extends Dexie {
   items!: Table<Item, number>;
 
   constructor() {
     super("IsaacItemDatabase");
-    this.version(1).stores({
+    this.version(2).stores({
       items: "id, name, type, quality, *tags, *pools",
     });
   }
 }
 
-// 3. Export a singleton instance
 export const db = new IsaacDatabase();
+
+export async function getItems(params: GetItems) {
+  const results = await db.items
+    .offset(params.offset)
+    .limit(params.limit)
+    .toArray();
+
+  return results;
+}

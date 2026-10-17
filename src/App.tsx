@@ -23,7 +23,6 @@ function App() {
   useEffect(() => {
     async function initDB() {
       const count = await db.items.count();
-      console.log(count)
       if (count === 0) {
         await db.items.bulkAdd(items);
       }
