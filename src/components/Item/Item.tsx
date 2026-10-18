@@ -5,13 +5,21 @@ export function Item({
   item,
   openedItem,
   setOpenItem,
+  noSpoilers,
 }: {
   item: ItemType;
   openedItem: string;
   setOpenItem: React.Dispatch<React.SetStateAction<string>>;
+  noSpoilers?: boolean;
 }) {
   const composedId = item.type + item.id;
   const isOpen = openedItem === composedId;
+  const spoilersFlag =
+    noSpoilers === undefined || noSpoilers === null ? true : noSpoilers;
+
+  if (spoilersFlag && !item.discovered) {
+    return <NoSpoilersItem />;
+  }
 
   return (
     <div className="item">
@@ -25,6 +33,11 @@ export function Item({
           setOpenItem(composedId);
         }}
       >
+        {!item.discovered && (
+          <div className="item__undiscovered">
+            <img height={19} width={19} src="/public/cross.svg"/>
+          </div>
+        )}
         <img
           width={90}
           height={90}
@@ -38,6 +51,17 @@ export function Item({
         inert={!isOpen ? true : undefined}
       >
         <TagManager item={item} />
+      </div>
+    </div>
+  );
+}
+
+function NoSpoilersItem() {
+  return (
+    <div className="item no-spoilers">
+      <div className="item__container">
+        <div className="no-spoilers__img">?</div>
+        <p className="item__name">Undiscovered item</p>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import type { ParsedData } from "./types/parsed-data";
 import { db } from "./lib/db";
 import type { Item } from "./types/item";
 import itemsJson from "./items.json";
+import type { CollectiblesChunkType } from "./lib/collectibles-chunk-type";
 
 const items = [
   ...itemsJson.items.active,
@@ -26,6 +27,11 @@ function App() {
       if (count === 0) {
         await db.items.bulkAdd(items);
       }
+
+      const nosSpoilers = localStorage.getItem("noSpoilers");
+      if (nosSpoilers === undefined || nosSpoilers === null) {
+        localStorage.setItem("noSpoilers", "1");
+      }
     }
 
     initDB();
@@ -36,6 +42,25 @@ function App() {
     return () => window.removeEventListener("scroll", updateScrollTop);
   }, []);
 
+  async function handleFileUpload(parsedData: ParsedData) {
+    setParsedData(parsedData);
+    try {
+      const collected = (
+        parsedData.chunks[3].body as unknown as CollectiblesChunkType
+      ).seen_by_id;
+      const updates = collected.map((state, index) => ({
+        key: index + 1,
+        changes: {
+          discovered: state === 1,
+        },
+      }));
+
+      await db.items.bulkUpdate(updates);
+    } catch (error) {
+      console.error("Failed to update items from file:", error);
+    }
+  }
+
   return (
     <div className="app">
       <header className="app__header">
@@ -45,7 +70,7 @@ function App() {
       {parsedData !== null ? (
         <MainApp parsedData={parsedData} />
       ) : (
-        <UploadSaveFile setParsedData={setParsedData} />
+        <UploadSaveFile procesData={handleFileUpload} />
       )}
       <footer className="app__footer"></footer>
       <FastScroll showScrollTop={showScrollTop} />

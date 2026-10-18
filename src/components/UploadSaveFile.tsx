@@ -4,9 +4,9 @@ import type { ParsedData } from "../types/parsed-data";
 import { parseIsaacSaveFile } from "../lib/isaac-save-parser";
 
 export default function UploadSaveFile({
-  setParsedData,
+  procesData: setParsedData,
 }: {
-  setParsedData: React.Dispatch<React.SetStateAction<ParsedData | null>>;
+  procesData: (data: ParsedData) => unknown;
 }) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState("");

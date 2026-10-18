@@ -6,8 +6,10 @@ import type { GetItems } from "../types/get-items";
 
 export default function ItemSection({
   fetchItems,
+  noSpoilers,
 }: {
   fetchItems: (params: GetItems) => Promise<Item[]>;
+  noSpoilers?: boolean;
 }) {
   const LIMIT = 50;
   const [, setOffset] = useState(0);
@@ -21,6 +23,7 @@ export default function ItemSection({
         limit: LIMIT,
         offset: 0,
       });
+      console.log(results)
       setItems(results);
     }
 
@@ -31,7 +34,6 @@ export default function ItemSection({
     setOffset((prevOffset) => {
       const nextOffset = prevOffset + LIMIT;
 
-      // Fetch inside or trigger after calculating next offset
       fetchItems({
         limit: LIMIT,
         offset: nextOffset,
@@ -53,6 +55,7 @@ export default function ItemSection({
             key={`${it.type}_${it.id}`}
             openedItem={openItemId}
             setOpenItem={setOpenItemId}
+            noSpoilers={noSpoilers}
           />
         ))}
       </section>

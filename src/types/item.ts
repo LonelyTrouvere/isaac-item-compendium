@@ -12,4 +12,5 @@ export interface Item {
   tags: string[];
   type: ItemType;
   pools: Pool[];
+  discovered?: boolean;
 }
