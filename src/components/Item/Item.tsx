@@ -35,13 +35,17 @@ export function Item({
       >
         {!item.discovered && (
           <div className="item__undiscovered">
-            <img height={19} width={19} src="/cross.svg"/>
+            <img
+              height={19}
+              width={19}
+              src={`${import.meta.env.BASE_URL}/cross.svg`}
+            />
           </div>
         )}
         <img
           width={90}
           height={90}
-          src={`/public/gfx/${item.gfx}`}
+          src={`${import.meta.env.BASE_URL}/public/gfx/${item.gfx}`}
           alt={item.name}
         ></img>
         <p className="item__name">{item.name}</p>
