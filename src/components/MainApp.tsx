@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import FiltersTab from "./FiltersTab";
 import type { ParsedData } from "../types/parsed-data";
 import type { CollectiblesChunkType } from "../lib/collectibles-chunk-type";
 import { db, getItems } from "../lib/db";
 import ItemSection from "./ItemSection";
+import type { Filters } from "../types/filters";
 
 export default function MainApp({ parsedData }: { parsedData: ParsedData }) {
   const [itemCount, setItemCount] = useState(0);
   const [noSpoilers, setNoSpoilers] = useState<boolean>(
     localStorage.getItem("noSpoilers") !== "0",
   );
+  const [filters, setFilters] = useState<Filters>({});
+
   const collected = (
     parsedData.chunks[3].body as unknown as CollectiblesChunkType
   ).seen_by_id;
@@ -22,6 +25,10 @@ export default function MainApp({ parsedData }: { parsedData: ParsedData }) {
 
     initDB();
   }, []);
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilters({ ...filters, name: e.target.value });
+  };
 
   return (
     <main className="main">
@@ -60,13 +67,18 @@ export default function MainApp({ parsedData }: { parsedData: ParsedData }) {
             <input
               className="main__search__input"
               placeholder="Search items..."
+              onChange={handleSearch}
             />
           </label>
         </div>
       </section>
       <div className="main__content-wrapper">
-        <FiltersTab />
-        <ItemSection fetchItems={getItems} noSpoilers={noSpoilers} />
+        <FiltersTab setFilters={setFilters} />
+        <ItemSection
+          fetchItems={getItems}
+          filters={filters}
+          noSpoilers={noSpoilers}
+        />
       </div>
     </main>
   );

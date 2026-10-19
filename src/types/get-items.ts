@@ -1,4 +1,6 @@
-export interface GetItems {
+import type { Filters } from "./filters";
+
+export type GetItems = {
     limit: number;
     offset: number
-}
+} & Filters

@@ -3,12 +3,15 @@ import Pagination from "./Pagination";
 import { Item as ItemComponent } from "./Item/Item";
 import { useEffect, useState, useCallback } from "react";
 import type { GetItems } from "../types/get-items";
+import type { Filters } from "../types/filters";
 
 export default function ItemSection({
   fetchItems,
+  filters,
   noSpoilers,
 }: {
   fetchItems: (params: GetItems) => Promise<Item[]>;
+  filters: Filters;
   noSpoilers?: boolean;
 }) {
   const LIMIT = 50;
@@ -19,16 +22,18 @@ export default function ItemSection({
 
   useEffect(() => {
     async function initItems() {
+      setOffset(0);
+      setHasMore(true);
       const results = await fetchItems({
         limit: LIMIT,
         offset: 0,
+        ...filters,
       });
-      console.log(results)
       setItems(results);
     }
 
     initItems();
-  }, []);
+  }, [filters]);
 
   const handleFetch = useCallback(async () => {
     setOffset((prevOffset) => {
@@ -37,6 +42,7 @@ export default function ItemSection({
       fetchItems({
         limit: LIMIT,
         offset: nextOffset,
+        ...filters,
       }).then((result) => {
         setItems((prev) => [...prev, ...result]);
         setHasMore(result.length >= LIMIT);
@@ -44,7 +50,7 @@ export default function ItemSection({
 
       return nextOffset;
     });
-  }, [fetchItems]);
+  }, [fetchItems, filters]);
 
   return (
     <div className="main__items-wrapper">
