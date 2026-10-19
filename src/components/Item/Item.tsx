@@ -45,7 +45,7 @@ export function Item({
         <img
           width={90}
           height={90}
-          src={`${import.meta.env.BASE_URL}/public/gfx/${item.gfx}`}
+          src={`${import.meta.env.BASE_URL}/gfx/${item.gfx}`}
           alt={item.name}
         ></img>
         <p className="item__name">{item.name}</p>
