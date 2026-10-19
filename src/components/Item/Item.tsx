@@ -35,7 +35,7 @@ export function Item({
       >
         {!item.discovered && (
           <div className="item__undiscovered">
-            <img height={19} width={19} src="/public/cross.svg"/>
+            <img height={19} width={19} src="/cross.svg"/>
           </div>
         )}
         <img

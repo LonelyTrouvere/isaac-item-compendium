@@ -62,7 +62,7 @@ export default function MainApp({ parsedData }: { parsedData: ParsedData }) {
           </div>
           <label className="main__search">
             <button className="main__search__button">
-              <img src="/public/search.svg" width={17} height={17} />
+              <img src="/search.svg" width={17} height={17} />
             </button>
             <input
               className="main__search__input"

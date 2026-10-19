@@ -45,7 +45,7 @@ export default function UploadSaveFile({
         }}
       >
         <div className="main__upload-area__upload-icon">
-          <img src="/public/upload.svg" height={30} width={30} />
+          <img src="/upload.svg" height={30} width={30} />
         </div>
         <p className="main__upload-area__text">
           Drag and drop or choose from device .dat file with The Binding of
