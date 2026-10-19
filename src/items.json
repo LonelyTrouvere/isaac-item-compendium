@@ -705,21 +705,6 @@
         ]
       },
       {
-        "cache": "damage",
-        "description": "Temporary DMG up",
-        "gfx": "Collectibles_034_TheBookOfBelial.png",
-        "id": 59,
-        "maxcharges": 3,
-        "name": "The Book of Belial",
-        "hidden": true,
-        "quality": "0",
-        "tags": [
-          ""
-        ],
-        "type": "passive",
-        "pools": []
-      },
-      {
         "cache": "tearflag",
         "description": "Building bridges",
         "gfx": "Collectibles_060_TheLadder.png",
@@ -10172,23 +10157,6 @@
           "greedTreasure",
           "babyShop"
         ]
-      },
-      {
-        "id": 656,
-        "achievement": 432,
-        "gfx": "Collectibles_577_Damocles.png",
-        "name": "Damocles",
-        "description": "A king's fortune... but at what cost?",
-        "devilprice": 2,
-        "cache": "familiars damage",
-        "hidden": true,
-        "quality": "2",
-        "tags": [
-          "offensive",
-          "nocantrip"
-        ],
-        "type": "familiar",
-        "pools": []
       },
       {
         "id": 667,

@@ -49,7 +49,7 @@ function App() {
         parsedData.chunks[3].body as unknown as CollectiblesChunkType
       ).seen_by_id;
       const updates = collected.map((state, index) => ({
-        key: index + 1,
+        key: index,
         changes: {
           discovered: state === 1,
         },
