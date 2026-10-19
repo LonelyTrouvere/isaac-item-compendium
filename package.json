@@ -1,5 +1,6 @@
 {
   "name": "isaac-item-compendium",
+  "homepage": "https://LonelyTrouvere.github.io/isaac-item-compendium",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,12 +8,15 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "binary-parser": "^2.3.0",
     "buffer": "^6.0.3",
     "dexie": "^4.4.6",
+    "gh-pages": "^6.3.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
