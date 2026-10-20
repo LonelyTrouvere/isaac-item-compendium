@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Buffer } from "buffer";
 import type { ParsedData } from "../types/parsed-data";
 import { parseIsaacSaveFile } from "../lib/isaac-save-parser";
+import type { CollectiblesChunkType } from "../lib/collectibles-chunk-type";
 
 export default function UploadSaveFile({
   procesData: setParsedData,
@@ -22,6 +23,11 @@ export default function UploadSaveFile({
 
     const fileBuffer = await incoming.arrayBuffer();
     const parsedData = parseIsaacSaveFile(Buffer.from(fileBuffer));
+    // set passive Book of Belial and Familiar Damocles as not seen so discovered count stays true relative to item count
+    (
+      parsedData.chunks[3].body as unknown as CollectiblesChunkType
+    ).seen_by_id[59] = 0;
+    (parsedData.chunks[3].body as unknown as CollectiblesChunkType).seen_by_id[656] = 0;
     setParsedData(parsedData);
   };
 
