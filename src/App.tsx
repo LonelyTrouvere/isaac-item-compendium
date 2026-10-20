@@ -8,6 +8,7 @@ import { db } from "./lib/db";
 import type { Item } from "./types/item";
 import itemsJson from "./items.json";
 import type { CollectiblesChunkType } from "./lib/collectibles-chunk-type";
+import Footer from "./components/Footer";
 
 const items = [
   ...itemsJson.items.active,
@@ -72,7 +73,7 @@ function App() {
       ) : (
         <UploadSaveFile procesData={handleFileUpload} />
       )}
-      <footer className="app__footer"></footer>
+      <Footer />
       <FastScroll showScrollTop={showScrollTop} />
     </div>
   );
