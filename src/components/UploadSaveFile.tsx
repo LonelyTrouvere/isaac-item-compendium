@@ -1,3 +1,5 @@
+import "./MainPanel.css";
+import "./UploadSaveFile.css";
 import { useRef, useState } from "react";
 import { Buffer } from "buffer";
 import type { ParsedData } from "../types/parsed-data";

@@ -1,3 +1,5 @@
+import "./MainPanel.css";
+import "./MainApp.css";
 import { useEffect, useState, type ChangeEvent } from "react";
 import FiltersTab from "./FiltersTab";
 import type { ParsedData } from "../types/parsed-data";

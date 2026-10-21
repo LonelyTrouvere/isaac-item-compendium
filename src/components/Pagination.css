@@ -1,0 +1,22 @@
+.paginator {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 32px;
+}
+
+.paginator__circle {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #8c6b4d;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: archive-spin 0.8s linear infinite;
+}
+
+@keyframes archive-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
