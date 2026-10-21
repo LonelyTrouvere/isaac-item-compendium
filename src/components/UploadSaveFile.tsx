@@ -21,14 +21,20 @@ export default function UploadSaveFile({
       return;
     }
 
-    const fileBuffer = await incoming.arrayBuffer();
-    const parsedData = parseIsaacSaveFile(Buffer.from(fileBuffer));
-    // set passive Book of Belial and Familiar Damocles as not seen so discovered count stays true relative to item count
-    (
-      parsedData.chunks[3].body as unknown as CollectiblesChunkType
-    ).seen_by_id[59] = 0;
-    (parsedData.chunks[3].body as unknown as CollectiblesChunkType).seen_by_id[656] = 0;
-    setParsedData(parsedData);
+    setError("");
+    try {
+      const fileBuffer = await incoming.arrayBuffer();
+      const parsedData = parseIsaacSaveFile(Buffer.from(fileBuffer));
+      // Exclude alternate Book of Belial and Damocles entries from the discovery count.
+      const collected = (
+        parsedData.chunks[3].body as unknown as CollectiblesChunkType
+      ).seen_by_id;
+      collected[59] = 0;
+      collected[656] = 0;
+      await setParsedData(parsedData);
+    } catch {
+      setError("Could not read this save file. Please choose a valid Isaac .dat file.");
+    }
   };
 
   return (
@@ -48,6 +54,7 @@ export default function UploadSaveFile({
         onDrop={(event) => {
           event.preventDefault();
           setIsDragging(false);
+          void selectFile(event.dataTransfer.files[0]);
         }}
       >
         <div className="main__upload-area__upload-icon">
@@ -61,6 +68,7 @@ export default function UploadSaveFile({
           Drag and drop or choose from device .dat file with The Binding of
           Isaac game data
         </p>
+        {error && <p role="alert">{error}</p>}
         <button
           type="button"
           className="main__upload-area__button"
