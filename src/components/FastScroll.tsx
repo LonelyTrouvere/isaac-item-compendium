@@ -1,3 +1,5 @@
+import "./FastScroll.css";
+
 export default function FastScroll({
   showScrollTop,
 }: {

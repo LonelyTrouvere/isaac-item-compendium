@@ -1,0 +1,9 @@
+.main {
+  background-color: #e8d8b7;
+  border: 1px solid #b49368;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow:
+    0px 18px 60px 0px rgba(12, 4, 2, 0.55),
+    inset 0px 0px 45px 0px rgba(88, 48, 25, 0.15);
+}

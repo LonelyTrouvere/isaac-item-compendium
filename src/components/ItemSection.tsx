@@ -1,3 +1,4 @@
+import "./ItemSection.css";
 import type { Item } from "../types/item";
 import Pagination from "./Pagination";
 import { Item as ItemComponent } from "./Item/Item";

@@ -1,0 +1,19 @@
+.main__items-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 22px;
+  border-right: 1px solid #b49368;
+  border-bottom: 1px solid #b49368;
+}
+
+.main__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  padding: 28px 34px 32px;
+}

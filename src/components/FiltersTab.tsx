@@ -1,3 +1,4 @@
+import "./FiltersTab.css";
 import { useRef, type ChangeEvent } from "react";
 import type { Filters } from "../types/filters";
 import { ItemType } from "../types/item-type";

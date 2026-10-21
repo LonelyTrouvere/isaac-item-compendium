@@ -1,3 +1,4 @@
+import "./Tag.css";
 import type { TagProp } from "../../types/tag-prop";
 
 export default function Tag({ icon, text, color }: TagProp) {

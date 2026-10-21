@@ -1,3 +1,4 @@
+import "./Pagination.css";
 import { useEffect, useRef } from "react";
 import useOnScreen from "../lib/use-on-screen";
 

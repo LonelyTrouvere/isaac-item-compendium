@@ -1,3 +1,4 @@
+import "./Item.css";
 import type { Item as ItemType } from "../../types/item";
 import TagManager from "../TagManager/TagManager";
 

@@ -1,0 +1,65 @@
+.main__filters {
+  width: 25%;
+  border-bottom: 1px solid #b49368;
+  border-left: 1px solid #b49368;
+  border-right: 1px solid #b49368;
+  padding: 32px 36px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.main__filters__header {
+  font-size: 24px;
+}
+
+.main__filters__clear {
+  border: none;
+  background: none;
+  outline: none;
+  font-family: "Special Elite", system-ui;
+  text-align: start;
+  color: #74382d;
+  border-bottom: 1px solid #74382d;
+  padding: 8px 0px;
+  cursor: pointer;
+}
+
+.main__filters__clear:hover {
+  background: rgb(215, 195, 160);
+}
+
+.filters__section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filters__section__name {
+  color: #725842;
+  padding: 12px 0;
+  border-bottom: 1px dashed #ad9472;
+}
+
+.filter-option {
+  display: flex;
+  gap: 9px;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter-option input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  border: 1px solid #76593e;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.filter-option input:checked {
+  background: #743024;
+  box-shadow: inset 0 0 0 3px #e3d1ad;
+}
